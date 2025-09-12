@@ -1,7 +1,3 @@
-tools {
-  git 'UpgradedGit'
-}
-
 pipeline {
   agent any
 
