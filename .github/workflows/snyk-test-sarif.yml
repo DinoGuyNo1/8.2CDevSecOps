@@ -3,12 +3,13 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
+      - name: Snyk auth
+        run: snyk auth $SNYK_TOKEN
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Snyk Test
         run: snyk test --sarif-file-output=snyk-sarif1.json
         continue-on-error: true
